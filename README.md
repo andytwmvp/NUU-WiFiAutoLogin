@@ -1,3 +1,3 @@
-forked from TTU-WiFiAutoConnect
+modified from TTU-WiFiAutoConnect
 
 https://github.com/HackGen/TTU-WiFiAutoLogin
