@@ -4,17 +4,14 @@ import java.util.List;
 
 import android.content.Context;
 import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
 public class WifiControl {
     
     private WifiManager wifiManager;
-    private WifiInfo wifiInfo;
     
     public WifiControl(Context context) {
         wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        wifiInfo = wifiManager.getConnectionInfo();
     }
     
     //¶}±ÒWifi

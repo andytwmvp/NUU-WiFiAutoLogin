@@ -8,7 +8,11 @@
 	<string name="login">Log In</string>
 	<string name="ssid">nuu</string>
 	<string name="err_ssid_msg">You are not connected to nuu</string>
+    <string name="enb_wifi_msg">WiFi Enabled</string>
+    <string name="dis_wifi_msg">WiFi Disabled</string>
 	<string name="url">https://securelogin.arubanetworks.com/cgi-bin/login</string>
+    <string name="enable">Enable WiFi</string>
+    <string name="disable">Disable WiFi</string>
 
 	<string-array name="params_name">
 		<item>user</item>

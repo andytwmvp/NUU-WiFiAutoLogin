@@ -51,10 +51,6 @@ public class WifiAutoLogin extends Activity {
         networkStatus = new NetworkStatus(this);
         wifiControl = new WifiControl(this);
         
-        if(!wifiControl.wifiStatus());
-        wifiControl.addNetwork(wifiControl.createWifiInfo(getString(R.string.ssid)));
-        wifiControl.connectWifi(getString(R.string.ssid));
-        restorePrefs();
 
     }
 
@@ -68,7 +64,19 @@ public class WifiAutoLogin extends Activity {
                     | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         }
     }
-
+    public void enableBthOnclick(View view) {
+        if(!wifiControl.wifiStatus());
+        wifiControl.addNetwork(wifiControl.createWifiInfo(getString(R.string.ssid)));
+        wifiControl.connectWifi(getString(R.string.ssid));
+        restorePrefs();
+        Toast.makeText(this, "WiFi Enabled", Toast.LENGTH_LONG).show();
+    }
+    public void disableBthOnclick(View view) {
+        if(!wifiControl.wifiStatus());
+        wifiControl.closeWifi();
+        restorePrefs();
+        Toast.makeText(this, "WiFi Disabled", Toast.LENGTH_LONG).show();
+    }
     public void loginBthOnclick(View view) {
         final ProgressDialog progressDialog;
 
