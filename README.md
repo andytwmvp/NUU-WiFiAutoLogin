@@ -1,4 +1,4 @@
-NUU WiFiAutoLogin 0.12.1230-alpha2
+NUU WiFiAutoLogin 0.13.1230-alpha2
 
 modified from TTU-WiFiAutoConnect
 
