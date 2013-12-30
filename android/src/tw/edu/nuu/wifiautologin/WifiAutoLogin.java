@@ -16,10 +16,10 @@ import tw.edu.nuu.network.NetworkStatus;
 import tw.edu.nuu.network.WifiControl;
 import tw.edu.ttu.wifiautologin.R;
 import android.os.Bundle;
-import android.text.InputType;
+//import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
+//import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.app.Activity;
@@ -34,7 +34,7 @@ public class WifiAutoLogin extends Activity {
 
     private EditText usernameEditText;
     private EditText passwordEditText;
-    private CheckBox showPasswordCheckBox;
+//  private CheckBox showPasswordCheckBox;
 
     private NetworkStatus networkStatus;
     private WifiControl wifiControl;
@@ -46,14 +46,14 @@ public class WifiAutoLogin extends Activity {
 
         usernameEditText = (EditText) findViewById(R.id.et_username);
         passwordEditText = (EditText) findViewById(R.id.et_password);
-        showPasswordCheckBox = (CheckBox) findViewById(R.id.cb_showpwd);
+//      showPasswordCheckBox = (CheckBox) findViewById(R.id.cb_showpwd);
 
         networkStatus = new NetworkStatus(this);
         wifiControl = new WifiControl(this);
         
-
+        restorePrefs();
     }
-
+/*
     public void showPasswordCheckBoxOnclick(View view) {
         if (showPasswordCheckBox.isChecked()) {
             passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT
@@ -64,28 +64,25 @@ public class WifiAutoLogin extends Activity {
                     | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         }
     }
+*/
     public void enableBthOnclick(View view) {
         if(!wifiControl.wifiStatus());
         wifiControl.addNetwork(wifiControl.createWifiInfo(getString(R.string.ssid)));
         wifiControl.connectWifi(getString(R.string.ssid));
-        restorePrefs();
         Toast.makeText(this, "WiFi Enabled", Toast.LENGTH_LONG).show();
     }
     public void disableBthOnclick(View view) {
-        if(!wifiControl.wifiStatus());
         wifiControl.closeWifi();
-        restorePrefs();
         Toast.makeText(this, "WiFi Disabled", Toast.LENGTH_LONG).show();
     }
     public void loginBthOnclick(View view) {
         final ProgressDialog progressDialog;
-
         progressDialog = ProgressDialog.show(this, "Log In", "Please wait...");
         new Thread() {
             @Override
             public void run() {
                 Resources resources = getResources();
-
+                
                 String url = getString(R.string.url);
                 String[] params_name = resources.getStringArray(R.array.params_name);
                 String[] params_value = resources.getStringArray(R.array.params_value);
@@ -122,7 +119,6 @@ public class WifiAutoLogin extends Activity {
             };
         }.start();
     }
-
     private void restorePrefs() {
         SharedPreferences setting = getSharedPreferences(PREF, 0);
         String username = setting.getString(PREF_USERNAME, "");
@@ -131,7 +127,6 @@ public class WifiAutoLogin extends Activity {
         usernameEditText.setText(username);
         passwordEditText.setText(password);
     }
-
     private void savePrefs() {
         SharedPreferences setting = getSharedPreferences(PREF, 0);
         setting.edit()
@@ -139,7 +134,6 @@ public class WifiAutoLogin extends Activity {
                 .putString(PREF_PWD, passwordEditText.getText().toString())
                 .commit();
     }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -152,7 +146,6 @@ public class WifiAutoLogin extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-
         savePrefs();
     }
 
