@@ -5,25 +5,28 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-
 import tw.edu.nuu.network.NetworkStatus;
 import tw.edu.nuu.network.WifiControl;
-import tw.edu.ttu.wifiautologin.R;
 import android.os.Bundle;
 //import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 //import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 
@@ -31,7 +34,6 @@ public class WifiAutoLogin extends Activity {
     public static final String PREF = "ACCOUNT_PREF";
     public static final String PREF_USERNAME = "USERNAME";
     public static final String PREF_PWD = "PASSWORD";
-
     private EditText usernameEditText;
     private EditText passwordEditText;
 //  private CheckBox showPasswordCheckBox;
@@ -69,11 +71,11 @@ public class WifiAutoLogin extends Activity {
         if(!wifiControl.wifiStatus());
         wifiControl.addNetwork(wifiControl.createWifiInfo(getString(R.string.ssid)));
         wifiControl.connectWifi(getString(R.string.ssid));
-        Toast.makeText(this, "WiFi Enabled", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.enb_wifi_msg), Toast.LENGTH_LONG).show();
     }
     public void disableBthOnclick(View view) {
         wifiControl.closeWifi();
-        Toast.makeText(this, "WiFi Disabled", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.err_ssid_msg), Toast.LENGTH_LONG).show();
     }
     public void loginBthOnclick(View view) {
         final ProgressDialog progressDialog;
@@ -142,12 +144,48 @@ public class WifiAutoLogin extends Activity {
             Toast.makeText(this, getString(R.string.err_ssid_msg), Toast.LENGTH_LONG).show();
         }
     }
-
     @Override
     protected void onPause() {
         super.onPause();
         savePrefs();
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+     // TODO Auto-generated method stub
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_nuu_wifi_auto_login, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+     // TODO Auto-generated method stub
+        switch(item.getItemId()){
+            case (R.id.about):
+                ShowMsgDialog();
+        }
+        return true;
+    }
+    
+    private void ShowMsgDialog()
+    {
+        Builder aboutAlertDialog = new AlertDialog.Builder(this);
+        aboutAlertDialog.setTitle(getString(R.string.app_name));
+        aboutAlertDialog.setMessage(getString(R.string.modified) +
+                                    "\n" + 
+                                    getString(R.string.by) +
+                                    "\n\n" +
+                                    getString(R.string.hackgen) +
+                                    "\n\n" +
+                                    getString(R.string.sitcon)
+                                    
+        );
+        DialogInterface.OnClickListener OkClick = new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int which) {;}
+        };;
+        aboutAlertDialog.setNeutralButton("Close", OkClick);
+        aboutAlertDialog.show();
+    }
 
 }
