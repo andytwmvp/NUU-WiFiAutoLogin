@@ -1,4 +1,3 @@
-
 package tw.edu.nuu.wifiautologin;
 
 import java.io.IOException;
@@ -13,6 +12,9 @@ import org.apache.http.message.BasicNameValuePair;
 import tw.edu.nuu.network.NetworkStatus;
 import tw.edu.nuu.network.WifiControl;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 //import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -21,12 +23,12 @@ import android.view.MenuItem;
 import android.view.View;
 //import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 
@@ -117,7 +119,6 @@ public class WifiAutoLogin extends Activity {
 
                 progressDialog.dismiss();
                 finish();
-
             };
         }.start();
     }
@@ -169,23 +170,19 @@ public class WifiAutoLogin extends Activity {
     
     private void ShowMsgDialog()
     {
+        final TextView message = new TextView(this);
+        final SpannableString info = new SpannableString(this.getText(R.string.about_info));
+        
+        Linkify.addLinks(info, Linkify.WEB_URLS);
+        message.setText(info);
+        message.setMovementMethod(LinkMovementMethod.getInstance());
+
         Builder aboutAlertDialog = new AlertDialog.Builder(this);
-        aboutAlertDialog.setTitle(getString(R.string.app_name));
-        aboutAlertDialog.setMessage(getString(R.string.modified) +
-                                    "\n" + 
-                                    getString(R.string.by) +
-                                    "\n\n" +
-                                    getString(R.string.hackgen) +
-                                    "\n\n" +
-                                    getString(R.string.sitcon)
-                                    
-        );
-        DialogInterface.OnClickListener OkClick = new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface dialog, int which) {;}
-        };;
-        aboutAlertDialog.setNeutralButton("Close", OkClick);
-        aboutAlertDialog.show();
+        
+        aboutAlertDialog.setTitle(getString(R.string.app_name))
+                        .setView(message)
+                        .setNeutralButton("Close", null)
+                        .show();
     }
 
 }

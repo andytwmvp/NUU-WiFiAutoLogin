@@ -13,10 +13,11 @@
     <string name="enb_wifi_msg">WiFi Enabled</string>
     <string name="dis_wifi_msg">WiFi Disabled</string>
     <string name="about">About</string>
-    <string name="modified">Modified from TTU-WiFiAutoLogin</string>
-    <string name="by">by Denny Huang at SITCON HackGen.</string>
-    <string name="hackgen">SITCON 2012 HackGen http://hackgen.sitcon.org/</string>
-    <string name="sitcon">SITCON 學生計算機年會 http://sitcon.org/</string>
+    <string name="about_info">Modified from TTU-WiFiAutoLogin\n
+                              by Denny Huang at SITCON HackGen.\n\n
+                              SITCON 2012 HackGen http://hackgen.sitcon.org\n
+                              SITCON 學生計算機年會 http://sitcon.org
+    </string>
 
 	<string-array name="params_name">
 		<item>user</item>
