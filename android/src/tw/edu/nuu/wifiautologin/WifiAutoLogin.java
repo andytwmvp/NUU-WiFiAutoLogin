@@ -31,6 +31,7 @@ import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import com.google.analytics.tracking.android.EasyTracker;
 
 public class WifiAutoLogin extends Activity {
     public static final String PREF = "ACCOUNT_PREF";
@@ -183,6 +184,17 @@ public class WifiAutoLogin extends Activity {
                         .setView(message)
                         .setNeutralButton("Close", null)
                         .show();
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(this).activityStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(this).activityStop(this);
     }
 
 }
